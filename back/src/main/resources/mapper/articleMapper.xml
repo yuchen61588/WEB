@@ -1,0 +1,42 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.log_in2.mapper.articleMapper" >
+    <!--结果映射-->
+    <resultMap id="BaseResultMap" type="org.example.log_in2.podo.article">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+
+
+    </resultMap>
+    <select id="getarticleByusername" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            id, title,content
+        FROM
+            articles
+        WHERE
+            username = #{username}
+    </select>
+    <insert id="insertarticle" >
+        INSERT INTO articles (
+            username, id,  title,content
+        ) VALUES (
+                     #{username}, #{article.id}, #{article.title}, #{article.content}
+
+                 )
+    </insert>
+    <update id="updatearticle">
+        UPDATE articles
+        SET
+            title = #{article.title},
+            content = #{article.content}
+        WHERE
+            username = #{username}
+          AND id = #{article.id}
+    </update>
+    <delete id="deletearticle">
+        DELETE FROM articles
+        WHERE
+            username = #{username}
+          AND id = #{article.id}
+    </delete>
+</mapper>

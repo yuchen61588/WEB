@@ -1,0 +1,26 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.log_in2.mapper.UserMapper" >
+    <!-- 根据用户名查找用户 -->
+    <select id="findUserByUsername" resultType="org.example.log_in2.podo.user">
+        SELECT * FROM users WHERE username = #{username}
+    </select>
+
+    <!-- 校验用户密码 -->
+    <select id="findPassword" resultType="boolean">
+        SELECT COUNT(1) > 0 FROM users WHERE username = #{username} AND password = #{password}
+    </select>
+
+    <!-- 添加新用户 -->
+    <insert id="addUser">
+        INSERT INTO users (username, password,confirm_password, birthday,email,url)
+        VALUES (#{username}, #{password}, #{confirm_password},#{birthday},#{email},#{url})
+    </insert>
+
+    <!-- 更新用户密码 -->
+    <update id="updatePassword">
+        UPDATE users
+        SET password = #{newPassword}
+        WHERE username = #{username}
+    </update>
+
+</mapper>

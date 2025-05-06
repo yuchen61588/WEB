@@ -1,0 +1,48 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.log_in2.mapper.UserDataMapper" >
+   <!--结果映射-->
+    <resultMap id="BaseResultMap" type="org.example.log_in2.podo.userData">
+        <id property="id" column="id"/>
+        <result property="date" column="date"/>
+        <result property="username" column="username"/>
+        <result property="city" column="city"/>
+        <result property="area" column="area"/>
+        <result property="address" column="address"/>
+        <result property="zip" column="zip"/>
+    </resultMap>
+    <select id="getUserDataByusername" parameterType="String" resultMap="BaseResultMap">
+        SELECT
+            id, date, username, city, area, address, zip
+        FROM
+            user_data
+        WHERE
+            owner_username = #{username}
+    </select>
+    <insert id="insertUserData" >
+        INSERT INTO user_data (
+            owner_username, id, date, username, city, area, address, zip
+        ) VALUES (
+                     #{username}, #{userData.id}, #{userData.date}, #{userData.username},
+                     #{userData.city}, #{userData.area}, #{userData.address}, #{userData.zip}
+                 )
+    </insert>
+    <update id="updateUserData">
+        UPDATE user_data
+        SET
+            date = #{userData.date},
+            username = #{userData.username},
+            city = #{userData.city},
+            area = #{userData.area},
+            address = #{userData.address},
+            zip = #{userData.zip}
+        WHERE
+            owner_username = #{username}
+          AND id = #{userData.id}
+    </update>
+    <delete id="deleteUserData">
+        DELETE FROM user_data
+        WHERE
+            owner_username = #{username}
+          AND id = #{userData.id}
+    </delete>
+</mapper>
